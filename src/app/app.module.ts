@@ -3,10 +3,24 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { SignUpComponent } from './component/auth/sign-up/sign-up.component';
+import { SignInComponent } from './component/auth/sign-in/sign-in.component';
+import { HeaderComponent } from './component/header/header.component';
+import { FooterComponent } from './component/footer/footer.component';
+import { PostsListComponent } from './component/posts-list/posts-list.component';
+import { NewPostComponent } from './component/posts-list/new-post/new-post.component';
+import { CommentsComponent } from './component/posts-list/comments/comments.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    SignUpComponent,
+    SignInComponent,
+    HeaderComponent,
+    FooterComponent,
+    PostsListComponent,
+    NewPostComponent,
+    CommentsComponent
   ],
   imports: [
     BrowserModule,
