@@ -5,11 +5,20 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarMenu">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item home"><a class="nav-link" href='#'><i class="fas fa-home"></i> home</a></li>
+      <li routerLinkActive='active' class="navbar-item home">
+        <a class="nav-link"><i class="fas fa-home"></i> home</a>
+      </li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
-      <li class='navbar-item' routerLink='active'><a class="nav-link" href="">New Account</a></li>
-      <li class="navbar-item"><a class="nav-link" href="#">Log-in</a></li>
+      <li routerLinkActive='active' class='navbar-item' routerLink='active' *ngIf='!isAuth'>
+        <a class="nav-link">New Account</a>
+      </li>
+      <li routerLinkActive='active' class="navbar-item" *ngIf='!isAuth'>
+        <a class="nav-link">Sign-in</a>
+      </li>
+      <li routerLinkActive='active' class="navbar-item" *ngIf='isAuth'>
+        <a class="nav-link" (click)='onSignOut()'>Log-out</a>
+      </li>
     </ul>
   </div>
 </nav>
