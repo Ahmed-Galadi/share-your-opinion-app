@@ -6,15 +6,15 @@
   <div class="collapse navbar-collapse" id="navbarMenu">
     <ul class="navbar-nav mr-auto">
       <li routerLinkActive='active' class="navbar-item home">
-        <a class="nav-link"><i class="fas fa-home"></i> home</a>
+        <a routerLink='posts' class="nav-link"><i class="fas fa-home"></i> home</a>
       </li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <li routerLinkActive='active' class='navbar-item' routerLink='active' *ngIf='!isAuth'>
-        <a class="nav-link">New Account</a>
+        <a routerLink="auth/signup" class="nav-link">New Account</a>
       </li>
       <li routerLinkActive='active' class="navbar-item" *ngIf='!isAuth'>
-        <a class="nav-link">Sign-in</a>
+        <a routerLink="auth/signin" class="nav-link">Sign-in</a>
       </li>
       <li routerLinkActive='active' class="navbar-item" *ngIf='isAuth'>
         <a class="nav-link" (click)='onSignOut()'>Log-out</a>
