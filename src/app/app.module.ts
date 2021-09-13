@@ -1,3 +1,7 @@
+import { UploadService } from './services/upload.service';
+import { AuthGuardService } from './services/auth-guard.service';
+import { PostsService } from './services/posts.service';
+import { AuthService } from './services/auth.service';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -31,7 +35,12 @@ import { HttpClientModule } from "@angular/common/http";
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    AuthService,
+    PostsService,
+    AuthGuardService,
+    UploadService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -15,8 +15,8 @@ export class SignUpComponent implements OnInit {
   errorMessage: string = ''
 
   constructor(private authService: AuthService,
-              private router: Router,
-              private formBuilder: FormBuilder) { }
+              private formBuilder: FormBuilder,
+              private router: Router) { }
 
   ngOnInit(): void {
     this.initForm();

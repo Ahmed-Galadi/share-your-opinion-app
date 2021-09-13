@@ -9,8 +9,8 @@ import { SignInComponent } from './component/auth/sign-in/sign-in.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'posts', pathMatch: 'full' },
-  { path: 'auth/signup', component: SignUpComponent },
   { path: 'auth/signin', component: SignInComponent },
+  { path: 'auth/signup', component: SignUpComponent },
   { path: 'posts', canActivate: [AuthGuardService], component: PostsListComponent },
   { path: 'posts/new', canActivate: [AuthGuardService], component: NewPostComponent },
   { path: 'posts/comments/:id', canActivate: [AuthGuardService], component: CommentsComponent},
