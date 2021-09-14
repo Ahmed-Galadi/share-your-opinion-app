@@ -10,13 +10,13 @@ import { getDatabase, onValue, ref, set } from 'firebase/database';
 export class PostsService {
 
   posts: Post[] = [];
-  booksSubject = new Subject<Post[]>();
+  postsSubject = new Subject<Post[]>();
 
   constructor(private uploadService: UploadService) { }
 
 // Emit Posts
   emitPosts() {
-    this.booksSubject.next(this.posts);
+    this.postsSubject.next(this.posts);
   }
 
 // Save Posts
@@ -74,8 +74,8 @@ export class PostsService {
 
   // Index of The Post To Delete
     const postIndexToRemove = this.posts.findIndex(
-      (postElement) => {
-        if(postElement === post) {
+      (postElements) => {
+        if(postElements === post) {
           return true;
         } else {
           return false;
@@ -88,5 +88,26 @@ export class PostsService {
     this.savePosts();
     this.emitPosts();
   }
+
+// Like Post
+  likePost(post: Post, like: string) {
+    const postIndex = this.posts.findIndex(
+      (postElements) => {
+        if(postElements === post) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+    );
+    if(like === 'like') {
+      this.posts[postIndex].likes += 1;
+    } else {
+      this.posts[postIndex].likes -= 1;
+    }
+    this.savePosts();
+    this.emitPosts();
+  }
+
 
 }

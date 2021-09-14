@@ -13,12 +13,13 @@ export class PostsListComponent implements OnInit {
 
   posts: Post[] = [];
   postsSubscription!: Subscription;
+  hide: boolean = false;
 
   constructor(private postService: PostsService,
               private router: Router) { }
 
   ngOnInit(): void {
-    this.postsSubscription = this.postService.booksSubject
+    this.postsSubscription = this.postService.postsSubject
                                   .subscribe(
                                     (posts: Post[]) => {
                                       this.posts = posts
@@ -43,4 +44,34 @@ export class PostsListComponent implements OnInit {
   ngOnDestroy() {
     this.postsSubscription.unsubscribe();
   }
+
+   getColor(post: Post) {
+     if(post.likes < 0) {
+      return 'red';
+      } else if(post.likes > 0) {
+       return 'green';
+     } else {
+       return '';
+     }
+
+  }
+
+  showThumb(post: Post) {
+      if(post.likes < 0) {
+        this.hide = true;
+      } else if(post.likes > 0) {
+        this.hide = false;
+      }
+  }
+
+  onLike(post: Post) {
+    this.postService.likePost(post, 'like');
+    this.showThumb(post);
+  }
+
+  onDislike(post: Post) {
+    this.postService.likePost(post, 'dislike')
+    this.showThumb(post);
+  }
+
 }

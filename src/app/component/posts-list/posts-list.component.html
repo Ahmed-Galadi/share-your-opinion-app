@@ -1,1 +1,19 @@
-<p>posts-list works!</p>
+<button class="btn btn-success" (click)='onNewPost()'>new Post</button>
+<div class="row">
+<li [ngClass]="{
+  'list-group-item': true,
+  'list-group-item-danger': post.likes < 0,
+  'list-group-item-success': post.likes > 0
+}" *ngFor='let post of posts'>
+  <div [ngStyle]='{ color: getColor(post) }'>
+    <h3>{{ post.author }} <span class="date">{{ post.crated_at | date: 'short' }}</span></h3>
+    <p>{{ post.caption }}</p>
+  </div>
+  <div class="likes" *ngIf='post.likes !== 0'>
+    <div [hidden]='hide'>{{ post.likes }}<i class="fas fa-thumbs-up"></i></div>
+    <div [hidden]='!hide'>{{ post.likes }}<i class="fas fa-thumbs-down"></i></div>
+  </div>
+  <button (click)='onLike(post)' class="btn btn-primary">Like</button>
+  <button (click)='onDislike(post)' class="btn btn-danger">Dislike</button>
+</li>
+</div>
