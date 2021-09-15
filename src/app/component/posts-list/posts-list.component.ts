@@ -38,7 +38,7 @@ export class PostsListComponent implements OnInit {
   }
 
   onCommentPost(id: number) {
-    this.router.navigate(['/posts', 'view', id]);
+    this.router.navigate(['/posts', 'comments', id]);
   }
 
   ngOnDestroy() {

@@ -109,5 +109,4 @@ export class PostsService {
     this.emitPosts();
   }
 
-
 }

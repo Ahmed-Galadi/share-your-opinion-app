@@ -1,12 +1,15 @@
-<button class="btn btn-success" (click)='onNewPost()'>new Post</button>
-<div class="row">
+<div class="col-sm-8 col-sm-offset-2">
+  <br>
+  <button class="btn btn-success" (click)='onNewPost()'>new Post</button>
+  <hr>
+  <br>
 <li [ngClass]="{
   'list-group-item': true,
   'list-group-item-danger': post.likes < 0,
   'list-group-item-success': post.likes > 0
-}" *ngFor='let post of posts'>
+}" *ngFor='let post of posts; let i = index'>
   <div [ngStyle]='{ color: getColor(post) }'>
-    <h3>{{ post.author }} <span class="date">{{ post.crated_at | date: 'short' }}</span></h3>
+    <h3>{{ post.author }} <span class="date">{{ post.created_at | date: 'short' }}</span></h3>
     <p>{{ post.caption }}</p>
   </div>
   <div class="likes" *ngIf='post.likes !== 0'>
@@ -15,5 +18,7 @@
   </div>
   <button (click)='onLike(post)' class="btn btn-primary">Like</button>
   <button (click)='onDislike(post)' class="btn btn-danger">Dislike</button>
+  <button (click)='onCommentPost(i)' class='btn btn-success'>Comment</button>
+  <button (click)='onDeletePost(post)' class="btn btn-danger">X</button>
 </li>
 </div>

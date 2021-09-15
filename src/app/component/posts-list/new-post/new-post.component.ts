@@ -16,6 +16,7 @@ export class NewPostComponent implements OnInit {
   fileIsUploading: boolean = false;
   fileUrl!: string;
   fileUploaded: boolean = false;
+  CreatedAt: string = new Date().toString();
 
   constructor(private formBuilder: FormBuilder,
               private postService: PostsService,
@@ -36,8 +37,10 @@ export class NewPostComponent implements OnInit {
   onSavePost() {
     const caption = this.postForm.get('caption')!.value;
     const author = this.postForm.get('author')!.value;
-    const date = new Date();
-    const newPost = new Post(caption, author, date);
+    const date = this.CreatedAt;
+    const newPost = new Post(caption, author);
+
+    newPost.created_at = date;
 
     if(this.fileUrl && this.fileUrl !== '') {
       newPost.image = this.fileUrl;
