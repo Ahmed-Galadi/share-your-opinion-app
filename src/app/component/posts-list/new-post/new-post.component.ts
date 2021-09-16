@@ -38,7 +38,7 @@ export class NewPostComponent implements OnInit {
     const caption = this.postForm.get('caption')!.value;
     const author = this.postForm.get('author')!.value;
     const date = this.CreatedAt;
-    const newPost = new Post(caption, author);
+    const newPost = new Post(caption, author, []);
 
     newPost.created_at = date;
 

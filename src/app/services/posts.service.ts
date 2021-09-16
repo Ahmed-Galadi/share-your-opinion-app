@@ -109,4 +109,20 @@ export class PostsService {
     this.emitPosts();
   }
 
+  commentPost(post: Post, comment: string ) {
+    const postIndex = this.posts.findIndex(
+      (posts) => {
+        if(posts === post) {
+          return true;
+        } else {
+          return false
+        }
+      }
+    );
+
+    this.posts[postIndex].comments?.push(comment);
+    this.savePosts();
+    this.emitPosts();
+  }
+
 }

@@ -1,1 +1,17 @@
-<div class="">a</div>
+<div class="col-sm-8 col-sm-offset-2">
+  <div class="list-group">
+    <div class="list-group-item">
+      <div>{{ post.caption }}</div>
+      <img style="max-width: 500px;" src="{{ post.image }}">
+        <span>Author: </span>
+      {{ post.author }}
+      <form [formGroup]='commentForm' (ngSubmit)='onComment(post)'>
+        <div class="form-group">
+          <label for="comment">Comments</label>
+          <input type="text" class="form-control" id="comment" formControlName='comment'>
+        </div>
+        <button type="submit" class="btn btn-primary">Comment</button>
+      </form>
+    </div>
+  </div>
+</div>
