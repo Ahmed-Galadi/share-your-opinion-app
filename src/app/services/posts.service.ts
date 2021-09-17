@@ -1,8 +1,8 @@
 import { UploadService } from './upload.service';
-import { Post } from './../models/Post.model';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { getDatabase, onValue, ref, set } from 'firebase/database';
+import { Post } from '../models/Post.model';
 
 @Injectable({
   providedIn: 'root'
@@ -111,8 +111,8 @@ export class PostsService {
 
   commentPost(post: Post, comment: string ) {
     const postIndex = this.posts.findIndex(
-      (posts) => {
-        if(posts === post) {
+      (postElements) => {
+        if(postElements === post) {
           return true;
         } else {
           return false
@@ -120,7 +120,7 @@ export class PostsService {
       }
     );
 
-    this.posts[postIndex].comments?.push(comment);
+    this.posts[postIndex].comments.push(comment);
     this.savePosts();
     this.emitPosts();
   }

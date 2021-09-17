@@ -1,3 +1,4 @@
+import { Subscription } from 'rxjs';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { PostsService } from './../../../services/posts.service';
 import { Component, OnInit } from '@angular/core';
@@ -11,8 +12,10 @@ import { Post } from 'src/app/models/Post.model';
 })
 export class CommentsComponent implements OnInit {
 
+  posts: Post[] = [];
   post!: Post;
   commentForm!: FormGroup
+  postsSubscription!: Subscription;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -20,13 +23,18 @@ export class CommentsComponent implements OnInit {
               private postsService: PostsService) { }
 
   ngOnInit(): void {
-    this.post = new Post('', '', []);
+    this.post = new Post('', '');
     const id = this.route.snapshot.params['id'];
     this.postsService.getSinglePost(+id).then(
       (post: Post) => {
         this.post = post;
-      }
-    );
+      });
+    this.postsSubscription = this.postsService.postsSubject
+                                  .subscribe(
+                                    (posts: Post[]) => {
+                                      this.posts = posts
+                                    }
+                                  );
     this.initForm();
     this.postsService.emitPosts();
   }
