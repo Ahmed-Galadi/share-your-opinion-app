@@ -12,10 +12,9 @@ import { Post } from 'src/app/models/Post.model';
 })
 export class CommentsComponent implements OnInit {
 
-  posts: Post[] = [];
   post!: Post;
   commentForm!: FormGroup
-  postsSubscription!: Subscription;
+
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -29,27 +28,14 @@ export class CommentsComponent implements OnInit {
       (post: Post) => {
         this.post = post;
       });
-    this.postsSubscription = this.postsService.postsSubject
-                                  .subscribe(
-                                    (posts: Post[]) => {
-                                      this.posts = posts
-                                    }
-                                  );
+
     this.initForm();
-    this.postsService.emitPosts();
   }
 
   initForm() {
     this.commentForm = this.formbuilder.group({
-      comment: ['', Validators.required]
+      comment: [,Validators.required]
     });
-  }
-
-  onComment(post: Post) {
-    const comment: string = this.commentForm.get('comment')!.value;
-
-    this.postsService.commentPost(post, comment);
-    this.postsService.savePosts();
   }
 
   onBack() {

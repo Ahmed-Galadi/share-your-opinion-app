@@ -14,18 +14,18 @@ export class PostsService {
 
   constructor(private uploadService: UploadService) { }
 
-// Emit Posts
+  // Emit Posts
   emitPosts() {
     this.postsSubject.next(this.posts);
   }
 
-// Save Posts
+  // Save Posts
   savePosts() {
     const db = getDatabase();
     set(ref(db, '/posts'), this.posts);
   }
 
-// Get Posts From Database
+  // Get Posts From Database
   getPosts() {
     const db = getDatabase();
     const dataRef = ref(db, '/posts');
@@ -38,7 +38,7 @@ export class PostsService {
     );
   }
 
-// Get Single Post Image and Comments and Caption
+  // Get Single Post Image and Comments and Caption
   getSinglePost(id: number) {
     const db = getDatabase();
     const dataRef = ref(db, `/posts/${id}`);
@@ -60,22 +60,22 @@ export class PostsService {
     );
   }
 
-// Create New Post
+  // Create New Post
   creatPost(post: Post) {
     this.posts.push(post);
     this.savePosts();
     this.emitPosts();
   }
 
-// Delete Posts
+  // Delete Posts
   removePost(post: Post) {
-  // Delete Post's Image
+    // Delete Post's Image
     this.uploadService.deleteFile(post);
 
-  // Index of The Post To Delete
+    // Index of The Post To Delete
     const postIndexToRemove = this.posts.findIndex(
       (postElements) => {
-        if(postElements === post) {
+        if (postElements === post) {
           return true;
         } else {
           return false;
@@ -83,24 +83,24 @@ export class PostsService {
       }
     );
 
-  // Delete Post
+    // Delete Post
     this.posts.splice(postIndexToRemove, 1);
     this.savePosts();
     this.emitPosts();
   }
 
-// Like Post
+  // Like Post
   likePost(post: Post, like: string) {
     const postIndex = this.posts.findIndex(
       (postElements) => {
-        if(postElements === post) {
+        if (postElements === post) {
           return true;
         } else {
           return false;
         }
       }
     );
-    if(like === 'like') {
+    if (like === 'like') {
       this.posts[postIndex].likes += 1;
     } else {
       this.posts[postIndex].likes -= 1;
@@ -109,17 +109,18 @@ export class PostsService {
     this.emitPosts();
   }
 
-  commentPost(post: Post, comment: string ) {
+  // Comment Post
+  commentPost(post: Post, comment: string) {
     const postIndex = this.posts.findIndex(
       (postElements) => {
-        if(postElements === post) {
+        if (postElements === post) {
           return true;
         } else {
           return false
         }
       }
     );
-
+    console.log(this.posts, comment);
     this.posts[postIndex].comments.push(comment);
     this.savePosts();
     this.emitPosts();

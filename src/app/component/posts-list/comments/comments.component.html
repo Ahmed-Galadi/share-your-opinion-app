@@ -3,19 +3,14 @@
     <div class="list-group-item">
       <div>{{ post.caption }}</div>
       <img style="max-width: 500px;" src="{{ post.image }}" >
-        <span>Author: </span>
-      {{ post.author }}
+        <div>Author: {{ post.author }}</div>
       <br>
-      <div *ngFor='let comment of post.comments'>
-        {{ comment }}
+      <div>
+        <label for="comments">Comments:</label>
+        <ul class="list-group">
+          <li class="list-group-item" *ngFor='let comment of post.comments | slice:1'>{{ comment }}</li>
+        </ul>
       </div>
-      <form [formGroup]='commentForm' (ngSubmit)='onComment(post)'>
-        <div class="form-group">
-          <label for="comment">Comments</label>
-          <input type="text" class="form-control" id="comment" formControlName='comment'>
-        </div>
-        <button type="submit" class="btn btn-primary">Comment</button>
-      </form>
     </div>
   </div>
 </div>

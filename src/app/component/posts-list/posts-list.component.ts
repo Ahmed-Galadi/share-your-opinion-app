@@ -1,3 +1,4 @@
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PostsService } from './../../services/posts.service';
 import { Component, OnInit } from '@angular/core';
@@ -14,8 +15,10 @@ export class PostsListComponent implements OnInit {
   posts: Post[] = [];
   postsSubscription!: Subscription;
   hide: boolean = false;
+  commentForm!: FormGroup;
 
   constructor(private postService: PostsService,
+              private formBuilder: FormBuilder,
               private router: Router) { }
 
   ngOnInit(): void {
@@ -25,8 +28,15 @@ export class PostsListComponent implements OnInit {
                                       this.posts = posts
                                     }
                                   );
+    this.initCommentForm();
     this.postService.getPosts();
     this.postService.emitPosts();
+  }
+
+  initCommentForm() {
+    this.commentForm = this.formBuilder.group({
+      comment: ['', [Validators.required]]
+    })
   }
 
   onNewPost() {
@@ -37,7 +47,7 @@ export class PostsListComponent implements OnInit {
     this.postService.removePost(post);
   }
 
-  onCommentPost(id: number) {
+  onSeePost(id: number) {
     this.router.navigate(['/posts', 'comments', id]);
   }
 
@@ -72,6 +82,12 @@ export class PostsListComponent implements OnInit {
   onDislike(post: Post) {
     this.postService.likePost(post, 'dislike')
     this.showThumb(post);
+  }
+
+  onComment(post: Post, id: number) {
+    const comment: string = this.commentForm.get('comment')?.value;
+    this.postService.commentPost(post, comment);
+    this.onSeePost(id);
   }
 
 }
