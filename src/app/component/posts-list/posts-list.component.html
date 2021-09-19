@@ -8,13 +8,17 @@
   'list-group-item-danger': post.likes < 0,
   'list-group-item-success': post.likes > 0
 }" *ngFor='let post of posts; let i = index'>
+ {{ post.liked }}
   <div [ngStyle]='{ color: getColor(post) }'>
     <h3>{{ post.author }} <span class="date">{{ post.created_at | date: 'short' }}</span></h3>
+    <button style="float: right;" (click)='onDeletePost(post)' class="btn btn-danger delete">
+      <i class="far fa-trash-alt"></i>
+    </button>
     <div>{{ post.caption }}</div>
   </div>
 
   <br>
-    <img style="max-width: 670px;" src="{{ post.image }}" alt="">
+    <img class="image" src="{{ post.image }}" alt="">
   <br>
 
   <div class="likes" *ngIf='post.likes !== 0'>
@@ -22,18 +26,28 @@
     <div [hidden]='!hide'>{{ post.likes }}<i class="fas fa-thumbs-down"></i></div>
   </div>
 
-  <div>
-    <button (click)='onLike(post)' class="btn btn-primary"><i class="fas fa-thumbs-up"></i></button>
-    <button (click)='onDislike(post)' class="btn btn-danger"><i class="fas fa-thumbs-down"></i></button>
-    <button (click)='onDeletePost(post)' class="btn btn-danger">X</button>
+  <hr>
+
+  <div disabled class="buttons">
+    <button (click)='onLike(post)' class="btn like">
+      <i class="fas fa-thumbs-up"></i>
+    </button>
+    <button (click)='onDislike(post)' class="btn disLike">
+      <i class="fas fa-thumbs-down"></i>
+    </button>
   </div>
 
-  <form [formGroup]='commentForm' (ngSubmit)='onComment(post, i)'>
-    <input type="text" class="form-control" id="comment" name="comment" formControlName='comment'>
-    <button type="submit" class="btn btn-success">comment</button>
+  <form class='comment' [formGroup]='commentForm' (ngSubmit)='onComment(post, i)'>
+  <div class="input-group mb-3">
+    <input type="text" placeholder="Write Your Comment.." aria-describedby="basic-addon2" class="form-control" id="comment" name="comment" formControlName='comment'>
+    <div class="input-group-append">
+      <button type="submit" class="btn btn-success" [disabled]='commentForm.invalid'><i class="far fa-comments"></i></button>
+    </div>
+  </div>
   </form>
 </li>
 </div>
 <br>
 <hr>
 <br>
+

@@ -89,6 +89,16 @@ export class PostsService {
     this.emitPosts();
   }
 
+  // if posts.likes > 0 , post.liked = true;
+  likedPost(post: Post) {
+    if(post.likes > 0 || post.likes < 0) {
+      post.liked = true;
+    } else {
+      post.liked = false;
+    }
+  }
+
+
   // Like Post
   likePost(post: Post, like: string) {
     const postIndex = this.posts.findIndex(
@@ -100,11 +110,15 @@ export class PostsService {
         }
       }
     );
+    const postLiked = this.posts[postIndex];
+
     if (like === 'like') {
       this.posts[postIndex].likes += 1;
     } else {
       this.posts[postIndex].likes -= 1;
     }
+
+    this.likedPost(postLiked);
     this.savePosts();
     this.emitPosts();
   }
