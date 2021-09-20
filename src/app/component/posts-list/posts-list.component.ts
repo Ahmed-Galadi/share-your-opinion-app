@@ -16,6 +16,8 @@ export class PostsListComponent implements OnInit {
   postsSubscription!: Subscription;
   hide: boolean = false;
   commentForm!: FormGroup;
+  hideLike!: any;
+  hideDislike!:any;
 
   constructor(private postService: PostsService,
               private formBuilder: FormBuilder,
@@ -73,6 +75,8 @@ export class PostsListComponent implements OnInit {
         this.hide = false;
       }
   }
+
+
 
   onLike(post: Post) {
     this.postService.likePost(post, 'like');

@@ -89,14 +89,6 @@ export class PostsService {
     this.emitPosts();
   }
 
-  // if posts.likes > 0 , post.liked = true;
-  likedPost(post: Post) {
-    if(post.likes > 0 || post.likes < 0) {
-      post.liked = true;
-    } else {
-      post.liked = false;
-    }
-  }
 
 
   // Like Post
@@ -117,8 +109,6 @@ export class PostsService {
     } else {
       this.posts[postIndex].likes -= 1;
     }
-
-    this.likedPost(postLiked);
     this.savePosts();
     this.emitPosts();
   }

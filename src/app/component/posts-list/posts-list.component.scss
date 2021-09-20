@@ -36,6 +36,11 @@
   }
 }
 
+.disable-like {
+  pointer-events: none;
+  display: none;
+}
+
 .comment {
   margin-bottom: 20px;
 }
