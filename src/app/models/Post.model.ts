@@ -4,5 +4,5 @@ export class Post {
   created_at!: string;
   comments!: string[];
   constructor( public caption: string,
-               public author: string) {}
+               public author: string ) {}
 }

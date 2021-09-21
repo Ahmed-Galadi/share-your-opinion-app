@@ -18,8 +18,6 @@ export class PostsListComponent implements OnInit {
   postsSubscription!: Subscription;
   hide: boolean = false;
   commentForm!: FormGroup;
-  disabLike: boolean = true;
-  disabDislike: boolean = true;
 
 
   constructor(private postService: PostsService,
