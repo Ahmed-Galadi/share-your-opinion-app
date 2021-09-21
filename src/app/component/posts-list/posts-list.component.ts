@@ -13,11 +13,14 @@ import { Post } from 'src/app/models/Post.model';
 export class PostsListComponent implements OnInit {
 
   posts: Post[] = [];
+  likeButtons = Array(this.posts.length).fill(false);
+  dislikeButtons = Array(this.posts.length).fill(true);
   postsSubscription!: Subscription;
   hide: boolean = false;
   commentForm!: FormGroup;
-  hideLike!: any;
-  hideDislike!:any;
+  disabLike: boolean = true;
+  disabDislike: boolean = true;
+
 
   constructor(private postService: PostsService,
               private formBuilder: FormBuilder,
@@ -76,16 +79,20 @@ export class PostsListComponent implements OnInit {
       }
   }
 
-
-
-  onLike(post: Post) {
-    this.postService.likePost(post, 'like');
-    this.showThumb(post);
+  onDisablLike(index: number, button: string) {
+    if(button === 'like') {
+      this.likeButtons[index] = true;
+      this.dislikeButtons[index] = false;
+    } else {
+      this.likeButtons[index] = false;
+      this.dislikeButtons[index] = true;
+    }
   }
 
-  onDislike(post: Post) {
-    this.postService.likePost(post, 'dislike')
-    this.showThumb(post);
+  onLike(post: Post, index: number , button: string) {
+      this.postService.likePost(post, button);
+      this.showThumb(post);
+      this.onDisablLike(index, button);
   }
 
   onComment(post: Post, id: number) {

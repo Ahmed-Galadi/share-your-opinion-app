@@ -22,17 +22,17 @@
   <br>
 
   <div class="likes" *ngIf='post.likes !== 0'>
-    <div  [hidden]='hide'>{{ post.likes }}<i class="fas fa-thumbs-up"></i></div>
+    <div [hidden]='hide'>{{ post.likes }}<i class="fas fa-thumbs-up"></i></div>
     <div [hidden]='!hide'>{{ post.likes }}<i class="fas fa-thumbs-down"></i></div>
   </div>
 
   <hr>
 
-  <div  class="buttons">
-    <button  (click)='onLike(post)' class="btn like">
+  <div class="buttons">
+    <button [disabled]='likeButtons[i]' (click)='onLike(post, i, "like")' class="btn like">
       <i class="fas fa-thumbs-up"></i>
     </button>
-    <button  (click)='onDislike(post)' class="btn disLike">
+    <button [disabled]='dislikeButtons[i]' (click)='onLike(post, i,"dislike")' class="btn disLike">
       <i class="fas fa-thumbs-down"></i>
     </button>
   </div>
