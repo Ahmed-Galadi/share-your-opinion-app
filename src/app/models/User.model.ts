@@ -1,5 +1,5 @@
 import { Post } from './Post.model';
-export class User {
+export class UserProfile {
   image?: string;
   sharedPosts?: Post[];
   likedPosts?: Post[];

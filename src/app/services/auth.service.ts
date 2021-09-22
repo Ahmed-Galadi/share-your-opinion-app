@@ -13,7 +13,6 @@ export class AuthService {
     return new Promise<void>(
       (resolve, reject) => {
         const auth: Auth = getAuth();
-        
         createUserWithEmailAndPassword(auth, email, password).then(
           () => {
             resolve();
