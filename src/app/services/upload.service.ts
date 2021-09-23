@@ -17,8 +17,23 @@ export class UploadService {
         const almostUniqueFileName = Date.now().toString();
         const storage = getStorage();
         const storageRef = ref(storage, `profileImages/${almostUniqueFileName}${file.name}`);
+        const upload = uploadBytesResumable(storageRef, file);
+
+        upload.on('state_changed',
+          () => {
+            console.log('Loading User\'s Image...');
+          },
+          (error) => {
+            console.log(`Loading Error: ${error}`);
+            reject();
+          },
+          () => {
+            resolve(getDownloadURL(upload.snapshot.ref));
+            console.log('User\'s Image Is Downloaded !!');
+          }
+        );
       }
-    )
+    );
   }
 
 // Upload Files from Firebase

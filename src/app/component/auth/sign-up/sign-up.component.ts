@@ -2,6 +2,7 @@ import { Router } from '@angular/router';
 import { AuthService } from './../../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ConfirmedValidator } from 'src/app/confirmation/confirm.validator';
 
 
 @Component({
@@ -26,7 +27,12 @@ export class SignUpComponent implements OnInit {
   initForm() {
     this.signUpForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.pattern(/[0-9a-zA-Z]{6,}/)]]
+      password: ['', [Validators.required, Validators.pattern(/[0-9a-zA-Z]{6,}/)]],
+      confirmPassword: ['',[Validators.required, Validators.pattern(/[0-9a-zA-Z]{6,}/)]],
+      userName: ['', Validators.required],
+      age: [0, Validators.required]
+    }, {
+      validator: ConfirmedValidator('password', 'confirmPassword')
     });
   }
 
@@ -34,8 +40,10 @@ export class SignUpComponent implements OnInit {
   onSubmit() {
     const email = this.signUpForm.get('email')?.value;
     const password = this.signUpForm.get('password')?.value;
+    const userName = this.signUpForm.get('userName')?.value;
+    const age = this.signUpForm.get('age')?.value;
 
-    this.authService.creatUser(email, password).then(
+    this.authService.creatUser(email, password, userName, age).then(
       () => {
         this.router.navigate(['/posts']);
       },

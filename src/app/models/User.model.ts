@@ -6,6 +6,5 @@ export class UserProfile {
   constructor(public userName: string,
               public age: number,
               public email: string,
-              public password: string,
-              public bio: string) {}
+              public password: string) {}
 }

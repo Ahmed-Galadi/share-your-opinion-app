@@ -3,14 +3,24 @@
     <h2>New Account</h2>
     <form [formGroup]='signUpForm'>
       <div class="form-group">
+        <label for="userName">Name</label>
+        <input type="text" id="userName" class="form-control" formControlName='userName'>
+      </div>
+      <div class="form-group">
         <label for="email">Email</label>
         <input type="text" id="email" class="form-control" formControlName='email' >
       </div>
       <div class="form-group">
+        <label for="age">Age</label>
+        <input type="number" id="age" class="form-control" formControlName='age'>
+      </div>
+      <div class="form-group">
         <label for="password">Password</label>
         <input type="password" id="password" class="form-control" formControlName='password'>
+        <label for="confirmPassword">Password</label>
+        <input type="password" id="confirmPassword" class="form-control" formControlName='confirmPassword'>
       </div>
-      <button type="submit" (click)='onSubmit()' class="btn btn-success">Creat New Account</button>
+      <button type="submit" (click)='onSubmit()' class="btn btn-success" [disabled]='signUpForm.invalid'>Creat New Account</button>
       <p class='danger'>{{ errorMessage }}</p>
     </form>
   </div>

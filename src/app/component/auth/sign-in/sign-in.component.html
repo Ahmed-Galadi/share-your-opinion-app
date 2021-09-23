@@ -9,6 +9,8 @@
       <div class="form-group">
         <label for="password">Password</label>
         <input type="password" id='password' class="form-control" formControlName='password'>
+        <label for="confirmPassword">Password</label>
+        <input type="password" id="confirmPassword" class="form-control" formControlName='confirmPassword'>
       </div>
       <button type='submit' class="btn btn-primary" (click)='onSubmit()' [disabled]='signInForm.invalid'>Log-In</button>
       <p class="text-danger">{{ errorMessage }}</p>

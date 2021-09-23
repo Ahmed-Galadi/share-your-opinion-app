@@ -35,6 +35,27 @@ export class UserService {
     );
   }
 
+  getSingleUser(index: number) {
+    const db = getDatabase();
+    const dataRef = ref(db, `/users/${index}`);
+
+    return new Promise<UserProfile>(
+      (resolve, reject) => {
+        onValue(dataRef,
+          (dataSnapshot) => {
+            resolve(dataSnapshot.val());
+          },
+          (error) => {
+            reject(error);
+          },
+          {
+            onlyOnce: true
+          }
+        );
+      }
+    );
+  }
+
   creatUser(user: UserProfile) {
     this.users.push(user);
     this.saveUsers();
@@ -59,5 +80,21 @@ export class UserService {
     this.getUsers();
   }
 
-
+  findUser(userEmail: string) {
+    const user = this.users.find(
+      ({email}) => {
+        email === userEmail;
+      }
+    );
+    const userIndex: number = this.users.findIndex(
+      (userElement) => {
+        if(userElement === user) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+    );
+    return console.log(userIndex);
+  }
 }
