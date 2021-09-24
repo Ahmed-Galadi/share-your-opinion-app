@@ -23,6 +23,8 @@ export class SignInComponent implements OnInit {
               private userService: UserService) { }
 
   ngOnInit(): void {
+    this.userService.getUsers();
+    this.userService.emitUsers();
     this.initForm();
   }
 
@@ -51,8 +53,6 @@ export class SignInComponent implements OnInit {
         this.errorMessage = error;
       }
     );
-
-    this.userService.findUser(email);
   }
 
 }

@@ -1,3 +1,5 @@
+import { UserService } from './../../services/user.service';
+import { UserProfile } from './../../models/User.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PostsService } from './../../services/posts.service';
@@ -18,10 +20,14 @@ export class PostsListComponent implements OnInit {
   postsSubscription!: Subscription;
   hide: boolean = false;
   commentForm!: FormGroup;
+  users: UserProfile[] = [];
+  user!:UserProfile;
+  usersSubscription!: Subscription;
 
 
   constructor(private postService: PostsService,
               private formBuilder: FormBuilder,
+              private userService: UserService,
               private router: Router) { }
 
   ngOnInit(): void {
@@ -31,6 +37,12 @@ export class PostsListComponent implements OnInit {
                                       this.posts = posts
                                     }
                                   );
+    this.usersSubscription = this.userService.usersSubject
+                                 .subscribe(
+                                   (users: UserProfile[]) => {
+                                     this.users = users
+                                   }
+                                 )
     this.initCommentForm();
     this.postService.getPosts();
     this.postService.emitPosts();

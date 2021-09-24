@@ -80,7 +80,8 @@ export class UserService {
     this.getUsers();
   }
 
-  findUser(userEmail: string) {
+  findUserIndex(userEmail: string) {
+    this.usersSubject.subscribe((users: UserProfile[]) => this.users = users);
     const user = this.users.find(
       ({email}) => {
         email === userEmail;
@@ -95,6 +96,9 @@ export class UserService {
         }
       }
     );
-    return console.log(userIndex);
+    this.getUsers();
+    this.emitUsers();
+    console.log(userIndex);
+    return userIndex;
   }
 }

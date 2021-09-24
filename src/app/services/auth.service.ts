@@ -33,6 +33,7 @@ export class AuthService {
     );
   }
 
+
 //For User Sign-in
   signInUser(email: string, password: string) {
     return new Promise<void>(
@@ -41,6 +42,7 @@ export class AuthService {
         signInWithEmailAndPassword(auth, email, password).then(
           () => {
             resolve();
+            this.userService.findUserIndex(email);
           },
           (error) => {
             reject(error);
