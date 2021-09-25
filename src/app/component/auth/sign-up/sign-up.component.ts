@@ -43,7 +43,7 @@ export class SignUpComponent implements OnInit {
     const userName = this.signUpForm.get('userName')?.value;
     const age = this.signUpForm.get('age')?.value;
 
-    this.authService.creatUser(email, password, userName, age).then(
+    this.authService.creatUser(email, password).then(
       () => {
         this.router.navigate(['/posts']);
       },

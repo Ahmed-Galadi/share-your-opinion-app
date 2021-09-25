@@ -1,5 +1,3 @@
-import { UserService } from './../../../services/user.service';
-import { UserProfile } from './../../../models/User.model';
 import { AuthService } from './../../../services/auth.service';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
@@ -15,16 +13,12 @@ export class SignInComponent implements OnInit {
 
   signInForm!: FormGroup;
   errorMessage: string = '';
-  user!: UserProfile;
 
   constructor(private formBuilder: FormBuilder,
               private authService: AuthService,
-              private router: Router,
-              private userService: UserService) { }
+              private router: Router) { }
 
   ngOnInit(): void {
-    this.userService.getUsers();
-    this.userService.emitUsers();
     this.initForm();
   }
 

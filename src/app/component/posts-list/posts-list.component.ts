@@ -1,5 +1,3 @@
-import { UserService } from './../../services/user.service';
-import { UserProfile } from './../../models/User.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PostsService } from './../../services/posts.service';
@@ -20,29 +18,20 @@ export class PostsListComponent implements OnInit {
   postsSubscription!: Subscription;
   hide: boolean = false;
   commentForm!: FormGroup;
-  users: UserProfile[] = [];
-  user!:UserProfile;
-  usersSubscription!: Subscription;
 
 
   constructor(private postService: PostsService,
-              private formBuilder: FormBuilder,
-              private userService: UserService,
-              private router: Router) { }
+    private formBuilder: FormBuilder,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.postsSubscription = this.postService.postsSubject
-                                  .subscribe(
-                                    (posts: Post[]) => {
-                                      this.posts = posts
-                                    }
-                                  );
-    this.usersSubscription = this.userService.usersSubject
-                                 .subscribe(
-                                   (users: UserProfile[]) => {
-                                     this.users = users
-                                   }
-                                 )
+      .subscribe(
+        (posts: Post[]) => {
+          this.posts = posts
+        }
+      );
+
     this.initCommentForm();
     this.postService.getPosts();
     this.postService.emitPosts();
@@ -70,27 +59,26 @@ export class PostsListComponent implements OnInit {
     this.postsSubscription.unsubscribe();
   }
 
-   getColor(post: Post) {
-     if(post.likes < 0) {
+  getColor(post: Post) {
+    if (post.likes < 0) {
       return 'red';
-      } else if(post.likes > 0) {
-       return 'green';
-     } else {
-       return '';
-     }
-
+    } else if (post.likes > 0) {
+      return 'green';
+    } else {
+      return '';
+    }
   }
 
   showThumb(post: Post) {
-      if(post.likes < 0) {
-        this.hide = true;
-      } else if(post.likes > 0) {
-        this.hide = false;
-      }
+    if (post.likes < 0) {
+      this.hide = true;
+    } else if (post.likes > 0) {
+      this.hide = false;
+    }
   }
 
   onDisablLike(index: number, button: string) {
-    if(button === 'like') {
+    if (button === 'like') {
       this.likeButtons[index] = true;
       this.dislikeButtons[index] = false;
     } else {
@@ -99,10 +87,10 @@ export class PostsListComponent implements OnInit {
     }
   }
 
-  onLike(post: Post, index: number , button: string) {
-      this.postService.likePost(post, button);
-      this.showThumb(post);
-      this.onDisablLike(index, button);
+  onLike(post: Post, index: number, button: string) {
+    this.postService.likePost(post, button);
+    this.showThumb(post);
+    this.onDisablLike(index, button);
   }
 
   onComment(post: Post, id: number) {
